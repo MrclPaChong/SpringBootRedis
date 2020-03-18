@@ -1,6 +1,5 @@
 package com.weirdo.test;
 
-import com.google.common.collect.Sets;
 import com.weirdo.server.ServerApplication;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
@@ -14,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * @ClassName: TestRedisWuZhongLeiXing
@@ -153,5 +153,51 @@ public class TestRedisWuZhongLeiXing {
     @Test
     public void testZset(){
 
+        log.info("开始Zset测试");
+        final  String key ="SpringBoot:Redis:testZset:";
+        redisTemplate.delete(key);
+
+        ZSetOperations<String,String> zSetOperations = redisTemplate.opsForZSet();
+
+        //向有序集合添加一个或多个成员，或者更新已存在成员的分数
+        zSetOperations.add(key,"A",1.0);
+        zSetOperations.add(key,"B",3.0);
+        zSetOperations.add(key,"C",2.0);
+        zSetOperations.add(key,"D",4.0);
+
+        log.info("有序集合Sorted Set-成员数：{}",zSetOperations.size(key));
+        //正序：通过索引区间返回有序集合指定区间内的成员
+        log.info("正序:有序集合Sorted Set-通过索引区间返回有序集合指定区间内的成员：{}",zSetOperations.range(key,0L,zSetOperations.size(key)));
+        //倒序：
+        log.info("倒序:有序集合Sorted Set-通过索引区间返回有序集合指定区间内的成员：{}",zSetOperations.reverseRange(key,0L,zSetOperations.size(key)));
+
+        //获取有序集合的成员数
+        log.info("有序集合Sorted Set的成员数：{}",zSetOperations.zCard(key));
+        log.info("有序集合Sorted Set成员A的得分：{}",zSetOperations.score(key,"A"));
+        log.info("有序集合Sorted Set成员B的得分：{}",zSetOperations.score(key,"B"));
+        log.info("");
+
+        log.info("正序：有序集合Sorted Set-中C的排名：{}",zSetOperations.rank(key,"C"));
+        log.info("倒序：有序集合Sorted Set-中C的排名：{}",zSetOperations.reverseRank(key,"C"));
+
+        //给指定key B 中的元素值 + 10.0
+        zSetOperations.incrementScore(key,"B",10.0);
+        log.info("有序集合Sorted Set成员B的得分：{}",zSetOperations.score(key,"B"));
+        log.info("正序:有序集合Sorted Set-通过索引区间返回有序集合指定区间内的成员：{}",zSetOperations.range(key,0L,zSetOperations.size(key)));
+
+        //移除
+        zSetOperations.remove(key,"B");
+        log.info("正序:有序集合Sorted Set-通过索引区间返回有序集合指定区间内的成员：{}",zSetOperations.range(key,0L,zSetOperations.size(key)));
+        log.info("有序集合Sorted Set-取出范围内成员的分数：{}",zSetOperations.rangeByScore(key,0,3));
+
+        Set<ZSetOperations.TypedTuple<String>> set = zSetOperations.rangeWithScores(key,0L,zSetOperations.size(key));
+
+        //set.forEach(tuple -> log.info("--当前成员：{} 对应的分数：{}",tuple.getValue(),tuple.getScore()));
+        set.forEach(new Consumer<ZSetOperations.TypedTuple<String>>() {
+            @Override
+            public void accept(ZSetOperations.TypedTuple<String> tuple) {
+                log.info("--当前成员：{} 对应的分数：{}",tuple.getValue(),tuple.getScore());
+            }
+        });
     }
 }
