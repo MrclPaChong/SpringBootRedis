@@ -20,5 +20,29 @@ Zset: Set+List 结合   有序、 元素唯一
       话费充值
       话费排行榜
       扩展：游戏充值排行榜、积分排行榜、微博热搜...
+ 
+Hash：一对多 map里面套map
+     // key{
+          --数据
+            Field{
+                    A:lisi
+                    B:wangwu 
+                    C:posk
+            }
+          --数据
+      //}
+     id	type	        name	code	   value order_by	is_active	    create_time
+     1	ReviewStatus	审核状态	Passed	    通过	1	            1	    2019/10/25 22:03:02
+     2	ReviewStatus	审核状态	NotPassed	不通过	2	            1	    2019/10/25 22:03:02
+     3	Sex	            性别	Female	    女性	1	            1	    2019/10/25 22:03:02
+     4	Sex	            性别	Male	    男性	2	            1	    2019/10/25 22:03:02
+     5	Color	        颜色	Red	        红色	1	            1	    2019/10/25 22:54:02
+     6	Color	        颜色	Black	    黑色	2	            1	    2019/10/25 22:54:38
+     7	Color	        颜色	White	    白色	3	            1	    2019/10/25 22:54:58
+     8	Color	        颜色	Pink	    粉色	4	            1	    2019/10/25 22:55:09
+     9	Color	        颜色	brond	    棕色	5	            1	    2019/10/31 21:34:13
+     10	HouseType	    户型	ThreeTwo	三房两厅	1	            1	    2019/10/31 21:42:28
+     11	HouseType	    户型	TwoOne	    两房一厅	2	            1	    2019/10/31 21:43:05
+
       
      

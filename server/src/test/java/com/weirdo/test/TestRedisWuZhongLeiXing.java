@@ -1,5 +1,6 @@
 package com.weirdo.test;
 
+import com.google.common.collect.Maps;
 import com.weirdo.server.ServerApplication;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
@@ -11,9 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Map;
+import java.util.function.Consumer;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
+
 
 /**
  * @ClassName: TestRedisWuZhongLeiXing
@@ -42,8 +45,8 @@ public class TestRedisWuZhongLeiXing {
     public void testString() {
         log.info("----开始字符串测试");
         //设置Key
-        final String key1 = "SpringBootRedis:testString1:";
-        final String key2 = "SpringBootRedis:testString2:";
+        final String key1 = "SpringBootRedis:test:String1:";
+        final String key2 = "SpringBootRedis:test:String2:";
         //同一个键，值会按照最新插入的覆盖。保留最新的
         ValueOperations valueOperations = redisTemplate.opsForValue();
         valueOperations.set(key1, "相同的键，值会覆盖，保留最后插入的");
@@ -66,7 +69,7 @@ public class TestRedisWuZhongLeiXing {
     @Test
     public void testList() {
         log.info("----开始List测试");
-        final String key = "SpringBootRedis:testList:";
+        final String key = "SpringBootRedis:test:List:";
 
         //清空key对应的List元素值
         stringRedisTemplate.delete(key);
@@ -109,8 +112,8 @@ public class TestRedisWuZhongLeiXing {
     public void  testSet(){
 
         log.info("set开始测试");
-        final  String key1 ="SpringBoot:Redis:testSet:10001";
-        final  String key2 ="SpringBoot:Redis:testSet:10002";
+        final  String key1 ="SpringBoot:Redis:test:Set:10001";
+        final  String key2 ="SpringBoot:Redis:test:Set:10002";
         redisTemplate.delete(key1);
         redisTemplate.delete(key2);
 
@@ -154,7 +157,7 @@ public class TestRedisWuZhongLeiXing {
     public void testZset(){
 
         log.info("开始Zset测试");
-        final  String key ="SpringBoot:Redis:testZset:";
+        final  String key ="SpringBoot:Redis:test:Zset:";
         redisTemplate.delete(key);
 
         ZSetOperations<String,String> zSetOperations = redisTemplate.opsForZSet();
@@ -176,7 +179,6 @@ public class TestRedisWuZhongLeiXing {
         log.info("有序集合Sorted Set成员A的得分：{}",zSetOperations.score(key,"A"));
         log.info("有序集合Sorted Set成员B的得分：{}",zSetOperations.score(key,"B"));
 
-        System.out.println("ssssssssssssssssssssssssssssssssss");
         log.info("");
 
         log.info("正序：有序集合Sorted Set-中C的排名：{}",zSetOperations.rank(key,"C"));
@@ -201,5 +203,48 @@ public class TestRedisWuZhongLeiXing {
                 log.info("--当前成员：{} 对应的分数：{}",tuple.getValue(),tuple.getScore());
             }
         });
+    }
+
+
+    /**
+     * Hash 测试
+     * Redis hash 是一个 string 类型的 field 和 value 的映射表，hash 特别适合用于存储对象。
+     * 1个key对应多个value
+     */
+    @Test
+    public void testHash(){
+
+        log.info("开始Hash 测试");
+        final  String key ="SpringBoot:Redis:test:Hash:";
+        redisTemplate.delete(key);
+
+        HashOperations<String,String,String> hashOperations = redisTemplate.opsForHash();
+
+        hashOperations.put(key,"10010","chenlei");
+        hashOperations.put(key,"10086","weirdo");
+
+        Map<String,String> dataMap = Maps.newHashMap();
+        dataMap.put("dataMap_9876","安其拉");
+        dataMap.put("dataMap_9875","李白");
+        dataMap.put("dataMap_9874","钟馗");
+        hashOperations.putAll(key,dataMap);
+
+        log.info("哈希-hash获取到的元素：{}",hashOperations.entries(key));
+        log.info("哈希-hash获取到10010的元素：{}",hashOperations.get(key,"10010"));
+        log.info("哈希-hash获取到所有的元素field：{}",hashOperations.keys(key));
+
+        log.info("哈希-hash 判断dataMap_9875成员是否存在：{}",hashOperations.hasKey(key,"dataMap_9875"));
+        log.info("哈希-hash 判断10086成员是否存在：{}",hashOperations.hasKey(key,"10086"));
+
+        //只有在字段 field 不存在时，设置哈希表字段的值。
+        hashOperations.putIfAbsent(key,"100AK","AK47-B");
+        log.info("哈希-hash获取到的元素：{}",hashOperations.entries(key));
+
+        //删除
+        hashOperations.delete(key,"10010","dataMap_9875","dataMap_9874");
+        log.info("哈希-hash获取到的元素：{}",hashOperations.entries(key));
+
+        log.info("哈希-hash 获取个数：{}",hashOperations.size(key));
+
     }
 }

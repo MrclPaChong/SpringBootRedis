@@ -1,5 +1,9 @@
 package com.weirdo.model.entity;
 
+import lombok.Data;
+import lombok.ToString;
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,6 +13,8 @@ import java.util.Date;
  * @author makejava
  * @since 2020-03-16 17:09:31
  */
+@Data
+@ToString
 public class SysConfig implements Serializable {
     private static final long serialVersionUID = 727699506530293640L;
     
@@ -16,18 +22,22 @@ public class SysConfig implements Serializable {
     /**
     * 字典类型
     */
+    @NotBlank(message = "字典类型不能为空")
     private String type;
     /**
     * 字典名称
     */
+    @NotBlank(message = "字典名称不能为空")
     private String name;
     /**
     * 选项编码
     */
+    @NotBlank(message = "选项编码不能为空")
     private String code;
     /**
     * 选项取值
     */
+    @NotBlank(message = "选项取值不能为空")
     private String value;
     /**
     * 排序
@@ -36,75 +46,10 @@ public class SysConfig implements Serializable {
     /**
     * 是否有效(1=是;0=否)
     */
-    private Object isActive;
+    private Object isActive=1;
     /**
     * 创建时间
     */
     private Date createTime;
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Integer getOrderBy() {
-        return orderBy;
-    }
-
-    public void setOrderBy(Integer orderBy) {
-        this.orderBy = orderBy;
-    }
-
-    public Object getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Object isActive) {
-        this.isActive = isActive;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 
 }

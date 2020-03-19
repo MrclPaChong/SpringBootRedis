@@ -29,6 +29,14 @@
         limit #{offset}, #{limit}
     </select>
 
+    <!--字典配置表-->
+    <select id="selectActiveConfigs" resultMap="SysConfigMap">
+        SELECT id, type, name, code, value, order_by, is_active, create_time
+        FROM sb_redis.sys_config
+        WHERE is_active = 1
+        ORDER BY type, order_by ASC
+    </select>
+
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="SysConfigMap">
         select
@@ -101,5 +109,7 @@
     <delete id="deleteById">
         delete from sb_redis.sys_config where id = #{id}
     </delete>
+
+
 
 </mapper>

@@ -64,4 +64,10 @@ public interface SysConfigDao {
      */
     int deleteById(Integer id);
 
+    /**
+     * 字典配置表
+     * @return
+     */
+    List<SysConfig> selectActiveConfigs();
+
 }
