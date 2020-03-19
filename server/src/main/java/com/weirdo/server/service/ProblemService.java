@@ -1,14 +1,12 @@
 package com.weirdo.server.service;
 
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.weirdo.api.response.Constant;
 import com.weirdo.model.dao.ProblemDao;
 import com.weirdo.model.entity.Problem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;

@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -44,7 +45,7 @@ public class ListListenerScheduler {
     private EmailService emailService;
 
     /**
-     * 近实时的定时任务
+     * 近实时的定时任务:10秒
      */
     @Scheduled(cron = "0/10 * * * * ?")
     public void schedulerListenNotice(){
@@ -60,6 +61,11 @@ public class ListListenerScheduler {
         }
     }
 
+    /**
+     * 异步任务调度配置在 config目录下
+     * @param notice
+     */
+    @Async("threadPoolTaskExecutor")
     private void noticeUser(Notice notice){
         if (notice!=null){
             List<User> list = userDao.queryAll(null);

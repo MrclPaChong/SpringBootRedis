@@ -175,6 +175,8 @@ public class TestRedisWuZhongLeiXing {
         log.info("有序集合Sorted Set的成员数：{}",zSetOperations.zCard(key));
         log.info("有序集合Sorted Set成员A的得分：{}",zSetOperations.score(key,"A"));
         log.info("有序集合Sorted Set成员B的得分：{}",zSetOperations.score(key,"B"));
+
+        System.out.println("ssssssssssssssssssssssssssssssssss");
         log.info("");
 
         log.info("正序：有序集合Sorted Set-中C的排名：{}",zSetOperations.rank(key,"C"));

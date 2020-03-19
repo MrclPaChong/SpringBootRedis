@@ -5,6 +5,7 @@ import com.weirdo.model.entity.PhoneFare;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 手机充值记录(PhoneFare)表数据库访问层
@@ -64,4 +65,16 @@ public interface PhoneFareDao {
      */
     int deleteById(Integer id);
 
+    /**
+     * 话费排行榜 升序倒序
+     * @param isAsc
+     * @return
+     */
+    Set<PhoneFare> sortFareByPhone(@Param("isAsc") Integer isAsc);
+
+    /**
+     * 基于数据库记录的补偿排名机制
+     * @return
+     */
+    List<PhoneFare> getAllSortFares();
 }

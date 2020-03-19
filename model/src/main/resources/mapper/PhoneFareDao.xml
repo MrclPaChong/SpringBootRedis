@@ -5,7 +5,7 @@
     <resultMap type="com.weirdo.model.entity.PhoneFare" id="PhoneFareMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="phone" column="phone" jdbcType="VARCHAR"/>
-        <result property="fare" column="fare" jdbcType="NUMERIC"/>
+        <result property="fare" column="fare" jdbcType="DECIMAL"/>
         <result property="isActive" column="is_active" jdbcType="TINYINT"/>
     </resultMap>
 
@@ -45,6 +45,39 @@
             </if>
         </where>
     </select>
+
+    <!--话费排行榜 升序倒序-->
+    <select id="sortFareByPhone" resultMap="PhoneFareMap">
+        SELECT
+        phone,
+        sum(fare) AS fare
+        FROM phone_fare
+        WHERE is_active = 1
+        GROUP BY phone
+
+        <choose>
+            <when test="isAsc=1">
+                ORDER BY fare ASC
+            </when>
+            <otherwise>
+                ORDER BY fare DESC
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <!--基于数据库记录的补偿排名机制-->
+    <select id="getAllSortFares" resultMap="PhoneFareMap">
+            SELECT
+                phone,
+                SUM(fare) AS fare
+            FROM
+                phone_fare
+            GROUP BY
+                phone
+            ORDER BY
+                fare DESC
+  </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
