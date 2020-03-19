@@ -45,4 +45,13 @@ Hash：一对多 map里面套map
      11	HouseType	    户型	TwoOne	    两房一厅	2	            1	    2019/10/31 21:43:05
 
       
-     
+布隆过滤器  位数组的形势+多层hash函数
+
+Redis的Hash   Map = key -- value
+                                -- value对
+              key -- map (field -- value对)
+                                -- value对
+                                
+前端：下拉框：颜色Color：
+                红色：red 
+                黑色：black
