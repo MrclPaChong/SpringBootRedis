@@ -13,6 +13,7 @@ import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.List;
 import java.util.Set;
@@ -245,6 +246,33 @@ public class TestRedisWuZhongLeiXing {
         log.info("哈希-hash获取到的元素：{}",hashOperations.entries(key));
 
         log.info("哈希-hash 获取个数：{}",hashOperations.size(key));
+
+    }
+
+
+    /**
+     * 失效key
+     * @throws Exception
+     */
+    @Test
+    public void testExpire() throws Exception{
+        log.info("----开始key失效测试");
+
+        final String key = "SpringBootRedis:Hash:Key:Expire";
+        redisTemplate.delete(key);
+
+        ValueOperations<String,String> valueOperations=redisTemplate.opsForValue();
+        valueOperations.set(key,"lixiaolong",5L,TimeUnit.SECONDS);
+
+        log.info("---取出数据：{}",valueOperations.get(key));
+        Thread.sleep(5000);
+        log.info("---取出数据：{}",valueOperations.get(key));
+
+        valueOperations.set(key,"bruceLee");
+        redisTemplate.expire(key,5L,TimeUnit.SECONDS);
+        log.info("---取出数据：{}",valueOperations.get(key));
+        Thread.sleep(5000);
+        log.info("---取出数据：{}",valueOperations.get(key));
 
     }
 }

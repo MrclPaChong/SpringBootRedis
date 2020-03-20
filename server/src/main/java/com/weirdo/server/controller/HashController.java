@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+
 /**
  * @ClassName: HashController
  * @Author: 86166
@@ -70,7 +71,7 @@ public class HashController extends AbstractController{
      */
     @RequestMapping(value = "get/type",method = RequestMethod.GET)
     public BaseResponse getType(@RequestParam String type){
-        System.out.println(type);
+
         BaseResponse response=new BaseResponse(StatusCode.Success);
         try {
             response.setData(hashService.getByType(type));
@@ -80,5 +81,6 @@ public class HashController extends AbstractController{
         }
         return response;
     }
+
 }
 

@@ -34,8 +34,8 @@ public class PhoneFareScheduler {
     @Autowired
     private PhoneFareDao phoneFareDao;
 
-
-    @Scheduled(cron = "0/10 * * * * ?")
+    @Scheduled(cron = "0/59 * * * * ?")
+    //@Scheduled(cron = "0/10 * * * * ?")
     public void sortFareScheduler(){
         log.info("补偿手机号码充值排行榜-定时任务");
         this.cacheSortResult();

@@ -47,7 +47,8 @@ public class ListListenerScheduler {
     /**
      * 近实时的定时任务:10秒
      */
-    @Scheduled(cron = "0/10 * * * * ?")
+    @Scheduled(cron = "0/59 * * * * ?")
+    //@Scheduled(cron = "0/10 * * * * ?")
     public void schedulerListenNotice(){
 
         log.info("定时任务调度(schedulerListenNotice)：{监听、检测、监听List 的通告信息}");

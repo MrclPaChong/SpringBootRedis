@@ -55,3 +55,13 @@ Redis的Hash   Map = key -- value
 前端：下拉框：颜色Color：
                 红色：red 
                 黑色：black
+                
+缓存穿透：
+        问题：请求查询数据库压根不存在的数据，也就是缓存和数据库都查询不到的这条数据，但是请求每次都会打到DB数据上面去
+        结果：大量的、无意义的查询落到DB上，明显会增加数据库的查询能力，严重者可能发生宕机。
+        解决方案：
+                穿透方案一：穿透方案一：给Redis 设置一个key的 元素为""的值
+                穿透方案二：限流(令牌桶) （组件-hystrix、guava提供的RateLimiter）
+                           https://www.cnblogs.com/cjsblog/p/9379516.html
+        
+        
