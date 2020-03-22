@@ -1,6 +1,10 @@
 package com.weirdo.model.entity;
 
+import lombok.Data;
+import lombok.ToString;
+
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -9,6 +13,8 @@ import java.util.Date;
  * @author makejava
  * @since 2020-03-16 17:09:31
  */
+@Data
+@ToString
 public class RedDetail implements Serializable {
     private static final long serialVersionUID = 297831045187701818L;
     
@@ -20,51 +26,10 @@ public class RedDetail implements Serializable {
     /**
     * 每个小红包的金额（单位为分）
     */
-    private Double amount;
+    private BigDecimal amount;
     
-    private Object isActive;
+    private byte isActive=1;
     
     private Date createTime;
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getRecordId() {
-        return recordId;
-    }
-
-    public void setRecordId(Integer recordId) {
-        this.recordId = recordId;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    public Object getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Object isActive) {
-        this.isActive = isActive;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 
 }

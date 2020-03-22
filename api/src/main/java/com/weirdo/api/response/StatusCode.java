@@ -14,6 +14,7 @@ public enum  StatusCode {
     InvalidParams(10010,"非法的参数！"),
 
     UserEmailHasExist(10011,"当前用户邮箱已存在!"),
+    UserRedAmountExist(10011,"你已抢到红包，金额为："),
 
     ;
 
