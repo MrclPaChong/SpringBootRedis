@@ -123,3 +123,7 @@ Redis的Hash   Map = key -- value
            方案：一：Redis的分布式锁  本demo采用方案
                  二：Redisson
                  三:zookeeper
+缓存：
+    @Cacheable: 获取并将给定的内容添加进缓存(缓存不存在时才添加进去)
+    @CacheEvict：失效缓存
+    @CachePut: 将给定的内容添加进缓存(不管缓存 存在不存在 都添加进去)

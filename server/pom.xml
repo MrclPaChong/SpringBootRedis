@@ -243,13 +243,13 @@
             <version>1.5.7.RELEASE</version>
         </dependency>
 
-        <!-- 引入热部署jar包 devtools-->
-        <dependency>
+        <!-- 引入热部署jar包 devtools  会和Redis注解缓存起冲突-->
+    <!--    <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <!-- optional=true,依赖不会传递，该项目依赖devtools；之后依赖该项目的项目如果想要使用devtools，需要重新引入 -->
+            &lt;!&ndash; optional=true,依赖不会传递，该项目依赖devtools；之后依赖该项目的项目如果想要使用devtools，需要重新引入 &ndash;&gt;
             <optional>true</optional>
-        </dependency>
+        </dependency>-->
 
         <!--jrebel-->
 

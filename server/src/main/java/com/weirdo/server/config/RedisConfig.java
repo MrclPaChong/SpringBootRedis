@@ -65,8 +65,10 @@ public class RedisConfig extends CachingConfigurerSupport{
     @Override
     public CacheManager cacheManager() {
         RedisCacheConfiguration config=RedisCacheConfiguration.defaultCacheConfig()
+                //disableCachingNullValues() 不允许存储null值
                 .entryTtl(Duration.ofSeconds(120)).disableCachingNullValues();
         return RedisCacheManager.builder(connectionFactory).cacheDefaults(config)
+                //开启事务通知
                 .transactionAware().build();
     }
 }

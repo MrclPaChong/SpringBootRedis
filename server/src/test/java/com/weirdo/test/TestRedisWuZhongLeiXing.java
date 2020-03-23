@@ -275,4 +275,16 @@ public class TestRedisWuZhongLeiXing {
         log.info("---取出数据：{}",valueOperations.get(key));
 
     }
+
+
+    /**
+     * 注解的缓存实战测试
+     */
+    @Test
+    public void testCache() {
+        log.info("----开始基于注解的缓存实战测试");
+
+        log.info("--{}",stringRedisTemplate.opsForValue().get("SpringBootRedis:Item::1"));
+    }
+
 }
